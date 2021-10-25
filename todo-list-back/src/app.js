@@ -4,14 +4,17 @@ let express = require('express');
 // Create express app
 let app = express(); 
 
-// Import path to create path from current or app_root directory
-let path = require('path');
+// Import todo routes from todo.js
+let todoRoutes = require('./todo');
 
 // parse application/x-www-form-urlencoded
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+// Tell express to use your route
+app.use(todoRoutes);
 
 // Error Handler for 404.. Resource not found
 app.use( (req, res) => {
