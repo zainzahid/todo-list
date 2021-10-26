@@ -26,6 +26,14 @@ describe('todo-list API test suite', () => {
         .get('/todo')
         .expect('Content-Type', /json/)
         .expect(200)
+        .then((res) => {
+            expect(res.body).toEqual(
+                expect.arrayContaining([{
+                name: expect.any(String),
+                status: expect.any(Boolean)
+                }])
+            )
+        })
     })
 
 })
