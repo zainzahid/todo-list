@@ -28,10 +28,12 @@ describe('todo-list API test suite', () => {
         .expect(200)
         .then((res) => {
             expect(res.body).toEqual(
-                expect.arrayContaining([{
-                name: expect.any(String),
-                status: expect.any(Boolean)
-                }])
+                expect.arrayContaining([
+                    expect.objectContaining({
+                    name: expect.any(String),
+                    status: expect.any(Boolean)
+                    })
+                ])
             )
         })
     })
