@@ -11,7 +11,10 @@ router.post('/todo', (req, res) => {
 } );
 
 router.get('/todo', (req, res) => {
-        res.json({message: 'test res'});
+        res.json([{
+            name: 'awake',
+            status: false
+        }]);
 } );
 
 module.exports = router;
