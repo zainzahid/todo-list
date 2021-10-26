@@ -6,10 +6,19 @@ describe('todo-list API test suite', () => {
         return request(app)
         .post('/todo')
         .send({
-            test: 'testing for POST',
+            name: 'sleep',
+            status: false
         })
         .expect('Content-Type', /json/)
         .expect(201)
+        .then((res) => {
+            expect(res.body).toEqual(
+                expect.objectContaining({
+                    name: 'sleep',
+                    status: false
+                })
+            )
+        })
     })
 
     it('should return todo-list array, GET', () => {
