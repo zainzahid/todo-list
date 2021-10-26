@@ -4,7 +4,10 @@ let express = require('express');
 let router = express.Router();  
 
 router.post('/todo', (req, res) => {
-    res.status(201).json({message: 'test res'});
+    res.status(201).json({
+        name: 'sleep',
+        status: false
+    });
 } );
 
 router.get('/todo', (req, res) => {
