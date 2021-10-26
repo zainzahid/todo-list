@@ -4,6 +4,10 @@ let express = require('express');
 // Create express app
 let app = express(); 
 
+// import mongoose cdm
+var mongoose = require('mongoose');
+
+
 // Import todo routes from todo.js
 let todoRoutes = require('./todo');
 
@@ -12,6 +16,20 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+// set donenv to access db connection string from .env
+const dotenv = require('dotenv');
+dotenv.config()
+
+// connect to mongodb
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser : true, 
+  useUnifiedTopology: true }, function(error) {
+      if (error) {
+          console.log("Error!" + error);
+      } else {
+        console.log("Connected!");
+      }
+  });
 
 // Tell express to use your route
 app.use(todoRoutes);
