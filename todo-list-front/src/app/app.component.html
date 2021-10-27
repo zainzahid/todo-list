@@ -1,5 +1,14 @@
-<input type="text" id="todo">
-
-<button id="submit"></button>
-
-<ul id="list"></ul>
+<div class="bg-container">
+    <div class="container my-3">
+      <input id="todo" type="text" [(ngModel)]="newTask" class="form-control" [ngClass]="{'is-invalid': invalid}" placeholder="Write the Task Todo Here">
+      <div *ngIf="invalid" class="invalid-feedback">
+        Please provide a task
+      </div>
+      <button id="submit" type="button" class="btn btn-success mt-3" (click)="addTask()">Add Task</button>
+      <ul id="list" class="list-group mt-3">
+        <li class="list-group-item" *ngFor="let task of tasks">{{ task }}</li>
+      </ul>
+    </div>
+  
+  </div>
+  

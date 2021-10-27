@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -7,6 +8,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [ FormsModule ]
     }).compileComponents();
   });
 
@@ -34,13 +36,13 @@ describe('AppComponent', () => {
     expect(inputElement instanceof HTMLUListElement).toBeTruthy();
   });
 
-  it(`comonent should have as newTask propery (empty string) to bind with new task input`, () => {
+  it(`component should have as newTask propery (empty string) to bind with new task input`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.newTask).toBe('');
   });
 
-  it(`comonent should have as tasks array`, () => {
+  it(`component should have as tasks array`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(Array.isArray(app.tasks)).toBeTruthy();
