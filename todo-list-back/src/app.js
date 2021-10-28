@@ -17,6 +17,9 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+const cors = require('cors');
+app.use(cors());
+
 // set donenv to access db connection string from .env
 const dotenv = require('dotenv');
 dotenv.config()
