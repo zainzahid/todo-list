@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  server:
+    build: ./todo-list-back
+    image: todo-list-back
+    ports:
+      - '3000:3000'
+
+  client:
+    build: ./todo-list-front
+    image: todo-list-front
+    ports:
+      - '80:80'
