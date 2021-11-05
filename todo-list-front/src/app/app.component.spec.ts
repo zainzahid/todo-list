@@ -39,14 +39,43 @@ describe('AppComponent', () => {
   });
 
   it(`component should have as newTask propery (empty string) to bind with new task input`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    const app = TestBed.createComponent(AppComponent).componentInstance;;
     expect(app.newTask).toBe('');
   });
 
   it(`component should have as tasks array`, () => {
+    const app = TestBed.createComponent(AppComponent).componentInstance;
+    expect(Array.isArray(app.tasks)).toBeTruthy();
+  });
+
+  it(`component should have propery called 'invalid' with type boolean to check the input validity`, () => {
+    const app = TestBed.createComponent(AppComponent).componentInstance;
+    expect(app.invalid).toBeDefined();
+    expect(typeof app.invalid == "boolean").toBeTruthy();
+  });
+
+  it(`component should set 'invalid' propery to true, when no new task is not provided on addTask`, () => {
+    const app = TestBed.createComponent(AppComponent).componentInstance;
+    app.newTask = '';
+    app.addTask();
+    expect(app.invalid).toBe(true);
+  });
+
+  it(`component should have the div to display the message when input is invalid`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(Array.isArray(app.tasks)).toBeTruthy();
+    app.invalid = true;
+    fixture.detectChanges();
+    const inputElement = fixture.nativeElement.querySelector('.invalid-feedback')
+    expect(inputElement instanceof HTMLDivElement).toBeTruthy();
+  });
+
+  it(`component should not have the div to display the message when input is valid`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    app.invalid = false;
+    fixture.detectChanges();
+    const inputElement = fixture.nativeElement.querySelector('.invalid-feedback')
+    expect(inputElement instanceof HTMLDivElement).toBeFalsy();
   });
 });
