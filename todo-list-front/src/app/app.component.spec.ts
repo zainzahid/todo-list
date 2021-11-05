@@ -3,6 +3,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {HttpClientModule} from '@angular/common/http';
+import { TodoService } from './todo.service';
+import * as Rx from 'rxjs';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,7 +12,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      imports: [ FormsModule, HttpClientModule, HttpClientTestingModule]
+      imports: [ FormsModule, HttpClientModule, HttpClientTestingModule],
+      providers: [TodoService]
     }).compileComponents();
   });
 
@@ -77,5 +80,19 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const inputElement = fixture.nativeElement.querySelector('.invalid-feedback')
     expect(inputElement instanceof HTMLDivElement).toBeFalsy();
+  });
+
+  it(`component method addTask() should should add a new task in the tasks array`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const service = fixture.debugElement.injector.get(TodoService);
+    app.newTask = 'New Test Task';
+    let spy_createTask = jest.spyOn(service,"createTask").mockImplementation(() => {
+      app.tasks.push(app.newTask);
+      return Rx.of({ _id: "6185c401db4d1644033c7890", name: "Test Task", status: false, "__v": 0 });
+    });
+    app.addTask();
+    expect(spy_createTask).toHaveBeenCalled();
+    expect(app.tasks[app.tasks.length - 1]).toBe('New Test Task')
   });
 });
