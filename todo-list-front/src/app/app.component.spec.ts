@@ -82,7 +82,28 @@ describe('AppComponent', () => {
     expect(inputElement instanceof HTMLDivElement).toBeFalsy();
   });
 
-  it(`component method addTask() should should add a new task in the tasks array`, () => {
+  it(`component intialzation should get all the tasks in a tasks array`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    const service = fixture.debugElement.injector.get(TodoService);
+    let spy_getTodoList = jest.spyOn(service,"getTodoList").mockImplementation(() => {
+      return Rx.of([{
+          _id: "61775b8d7fc1164b78a2617d",
+          name: "make a new app",
+          status: false,
+      },
+      {
+          _id: "617768dc702c7322046dd1c7",
+          name: "sleep",
+          status: false,
+      }]);
+    });
+    app.ngOnInit();
+    expect(spy_getTodoList).toHaveBeenCalled();
+    expect(app.tasks).toEqual(["make a new app", "sleep"]);
+  });
+
+  it(`component method addTask() should add a new task in the tasks array`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     const service = fixture.debugElement.injector.get(TodoService);

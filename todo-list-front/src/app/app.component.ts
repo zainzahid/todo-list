@@ -20,7 +20,6 @@ export class AppComponent {
       (tasks) => {
         if(tasks){ 
           this.tasks = tasks.map((t: any) => t.name)
-          console.log('tasks', this.tasks)
         }
       },
       (error: any) => {
