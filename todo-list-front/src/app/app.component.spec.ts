@@ -109,11 +109,11 @@ describe('AppComponent', () => {
     const service = fixture.debugElement.injector.get(TodoService);
     app.newTask = 'New Test Task';
     let spy_createTask = jest.spyOn(service,"createTask").mockImplementation(() => {
-      app.tasks.push(app.newTask);
       return Rx.of({ _id: "6185c401db4d1644033c7890", name: "Test Task", status: false, "__v": 0 });
     });
     app.addTask();
     expect(spy_createTask).toHaveBeenCalled();
-    expect(app.tasks[app.tasks.length - 1]).toBe('New Test Task')
+    const lastIndex = app.tasks.length - 1
+    expect(app.tasks[lastIndex]).toBe('New Test Task')
   });
 });
